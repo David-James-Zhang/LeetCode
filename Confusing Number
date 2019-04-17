@@ -1,0 +1,31 @@
+class Solution {
+    public boolean confusingNumber(int N) {
+        String strN = String.valueOf(N);
+        if(strN.contains("2") || strN.contains("3") || strN.contains("4") || strN.contains("5") || strN.contains("7"))return false;
+        StringBuffer new_strN = new StringBuffer(strN);
+        int head = 0;
+        int rear = strN.length()-1;
+        while(head < rear){
+            char s1 = strN.charAt(head);
+            char s2 = strN.charAt(rear);
+            switch(s1){
+                case '6':new_strN.replace(rear,rear+1,"9");break;
+                case '9':new_strN.replace(rear,rear+1,"6");break;
+                default:new_strN.replace(rear,rear+1,Character.toString(s1));break;
+            }
+            switch(s2){
+                case '6':new_strN.replace(head,head+1,"9");break;
+                case '9':new_strN.replace(head,head+1,"6");break;
+                default:new_strN.replace(head,head+1,Character.toString(s2));break;
+            }
+            head++;
+            rear--;
+        }
+        if(head == rear){
+            char x = strN.charAt(head);
+            if(x == '6' || x == '9')
+                return true;
+        }
+        return strN.equals(new_strN.toString()) ? false : true;
+    }
+}
